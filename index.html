@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cotizador Buyee</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .cotizador {
+            background: white;
+            width: 90%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        .descripcion {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #777;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #111;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 12px;
+        }
+
+        .resultado p {
+            margin: 0 0 8px;
+            color: #666;
+        }
+
+        .precio {
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cotizador">
+
+        <h1>🛍️ Cotizador Buyee</h1>
+
+        <p class="descripcion">
+            Ingresá el precio del producto en dólares.
+        </p>
+
+        <label for="precioUSD">
+            Precio del producto (USD)
+        </label>
+
+        <input
+            type="number"
+            id="precioUSD"
+            placeholder="Ej: 25"
+            min="0"
+            step="0.01"
+        >
+
+        <button onclick="cotizar()">
+            COTIZAR
+        </button>
+
+        <div class="resultado">
+            <p>Precio estimado</p>
+
+            <div class="precio" id="resultado">
+                $0
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        function cotizar() {
+
+            // DÓLAR DE PRUEBA
+            const dolar = 1500;
+            // FEES PRUEBA
+            const fees = 3;
+
+            // Tomamos el precio que escribió la persona
+            const precioUSD = parseFloat(
+                document.getElementById("precioUSD").value
+            );
+
+            // Si no escribió nada
+            if (isNaN(precioUSD) || precioUSD < 0) {
+                document.getElementById("resultado").innerText =
+                    "Ingresá un precio válido";
+                return;
+            }
+
+            // Calculamos
+            const totalUSD = precioUSD + fees;
+            const total = totalUSD * dolar;
+
+            // Mostramos el resultado
+            document.getElementById("resultado").innerText =
+                "$" + total.toLocaleString("es-AR");
+
+        }
+
+    </script>
+
+</body>
+</html>
